@@ -37,8 +37,8 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
         CopyOnWriteArrayList<String> hooksTriggered = new CopyOnWriteArrayList<>();
 
         Flux<Integer> temperatureFlux = room_temperature_service()
+                .doOnSubscribe(sub->hooksTriggered.add("subscribe"));
                 //todo: change this line only
-                ;
 
         StepVerifier.create(temperatureFlux.take(5))
                     .expectNextCount(5)
